@@ -1,8 +1,9 @@
 import express from 'express';
 const router = express.Router();
 
-router.get('/order',(req,res)=>{
+router.get('/order', (req,res)=>{
     try {
+        //Hace la request 
         res.send('order')
     } catch (error) {
         res.send(error)
