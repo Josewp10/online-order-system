@@ -6,17 +6,21 @@ import { orders } from '../database/orders';
 
 router.get('/order', (req,res)=>{
     try {
+        let _manager = new Manager({username:req.query.username},req);
+        _manager.authorize()
         const allOrders = Object.values(orders); 
         //const _manager = new Manager(user);
         //_manager.authenticate().ipValidate().authorize();
         res.status(200).send({ok:true,message:allOrders})
     } catch (error) {
-        res.send(error)
+        res.status(409).send(error)
     }
 })
 
 router.post('/order',(req,res)=>{
     try {
+        let _manager = new Manager({username:req.query.username},req);
+        _manager.authorize()
         const order = req.body.order;
 
         const user = req.body.user;
@@ -31,7 +35,7 @@ router.post('/order',(req,res)=>{
         res.status(200).send({ok:true,message:"Order saved."})
 
     } catch (error) {
-        res.send(error)
+        res.status(409).send(error)
     }
 })
 

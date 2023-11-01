@@ -8,9 +8,9 @@ router.post('/login', (req,res)=>{
         const user = req.body;
         const _manager = new Manager(user);
         _manager.authenticate().ipValidate();
-        res.send('authorized')
+        res.status(201).send({ok:true,message:'User authorized'})
     } catch (error) {
-        res.send(error)
+        res.status(409).send(error)
     }
 })
 

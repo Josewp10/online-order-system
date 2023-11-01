@@ -14,9 +14,11 @@ export class Manager{
 
     private ipDetails : any;
     private user: object;
+    private request : object | undefined;
     
     constructor(user:object,request?:object){
         this.user=user;
+        this.request=request;
         this.authentication = new Authenticator;
         this.authorizer = new Authorizer;
         this.ipFailedRequest = IpFailedRequest.getInstance();
@@ -36,7 +38,7 @@ export class Manager{
     }
     
     authorize():this{
-        this.authorizer.verify({});
+        this.authorizer.verify({user:this.user, request:this.request});
         return this
     }
 

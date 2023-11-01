@@ -1,11 +1,11 @@
 export class Rol {
     public id:number | undefined ;
-    public nombre:string | undefined ;
-    public permisos: string[];
+    public name:string | undefined ;
+    public permissions: string[];
 
-    constructor(id:number,nombre:string,permisos:string[]){
+    constructor(id:number,name:string,permissions:string[]){
         this.id = id
-        this.nombre=nombre
-        this.permisos =permisos
+        this.name=name
+        this.permissions =permissions
     }
 }
