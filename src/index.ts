@@ -5,6 +5,12 @@ import cors from 'cors';
 import authentication from './libs/routes/authentication'
 import orders from './libs/routes/orders'
 
+//Base de datos
+import { createRoles } from './libs/database/roles';
+import { createUsers } from './libs/database/users';
+createRoles()
+createUsers()
+
 const app = express();
 //Cors
 
