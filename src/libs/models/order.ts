@@ -15,10 +15,4 @@ export class Order {
         this.customer =customer
     }
 
-    createOrder(order:Order) {
-        const newOrder = order;
-        orders[newOrder.id] = newOrder;
-        return newOrder;
-    }
-
 }

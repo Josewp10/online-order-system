@@ -4,6 +4,7 @@ import { Authorizer } from "./authorizer";
 import { DataValidator } from "./dataValidator";
 import { Cache } from "./cache";
 import { IVerificator } from "./IVerificator";
+import { getOrder } from "../database/orders";
 
 export class Manager{
     private authentication: IVerificator;
@@ -37,15 +38,35 @@ export class Manager{
         return this;
     }
     
-    authorize():this{                
+    melo(){
+        return this.request
+        
+    }
+    authorize():this{                    
         this.authorizer.verify({user:this.user, request:this.request});
         return this
     }
 
-    cache():this{        
-        let resp = this.cacheV.verify({request:this.request});   
-        return resp;
+    
+    cache():this{                
+        let resp =  this.cacheV.verify({request:this.request}); 
+        
+        if(resp!=undefined){    
+            console.log('RETORNADO DESDE LA CACHE');
+            return resp
+        }else if(resp ==undefined){            
+            const order:any = getOrder({request:this.request});
+            resp = this.cacheV.verify({request:this.request, response:order})
+            console.log('RETORNADO DESDE EL REGISTRO DE ORDENES');
+            return order
+        }else{
+            return this
+        }
+           
     }
+
+    
+  
     
 
 }
