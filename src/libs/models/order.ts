@@ -15,13 +15,9 @@ export class Order {
         this.customer =customer
     }
 
-    //createOrder(id:number,product:string,quantity:number,totalPrice:number,customer:string) {
-    //    const newOrder = new Order(id, product, quantity, totalPrice, customer);
     createOrder(order:Order) {
         const newOrder = order;
-        //console.log(order);
         orders[newOrder.id] = newOrder;
-        console.log(orders)
         return newOrder;
     }
 
