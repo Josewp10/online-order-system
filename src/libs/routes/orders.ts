@@ -7,11 +7,34 @@ import { orders } from '../database/orders';
 router.get('/order', (req,res)=>{
     try {
         let _manager = new Manager({username:req.query.username},req);
-        _manager.authorize()
-        const allOrders = Object.values(orders); 
-        res.status(200).send({ok:true,message:allOrders})
+        _manager.authorize().cache()
+        //const allOrders = Object.values(orders); 
+
+        res.status(200).send({ok:true,data:'allOrders'})
     } catch (error) {
-        res.status(409).send(error)
+        res.status(409).send({ok:false,error:error})
+    }
+})
+
+router.get('/order/unit', (req,res)=>{
+    try {
+        let _manager = new Manager({username:req.query.username},req);
+        _manager.authorize()
+        let orderid: number | undefined;
+        if (typeof req.query.orderid === 'string') {
+            orderid = parseInt(req.query.orderid, 10);
+        }
+        else{
+            orderid = 0;
+        }
+        const Order = orders[orderid]        
+        if(Order === undefined ){
+            res.status(404).send("Orden no encontrada")
+        }else{
+            res.status(200).send({ok:true,message:Order})
+        }
+    } catch (error) {
+        res.status(409).send({ok:false,error:error})
     }
 })
 
@@ -51,7 +74,7 @@ router.post('/order',(req,res)=>{
         res.status(200).send({ok:true,message:"Order saved."})
 
     } catch (error) {
-        res.status(409).send(error)
+        res.status(409).send({ok:false,error:error})
     }
 })
 

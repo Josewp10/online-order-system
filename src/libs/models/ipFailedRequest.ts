@@ -18,11 +18,11 @@ export class IpFailedRequest implements IVerificator{
         if ( !ipDetails.logged && this.blockedIPs[ipDetails.ip] == undefined) {
             this.blockedIPs[ipDetails.ip] = 1;
             throw 'Not authorized'
-        }else if(!ipDetails.logged && this.blockedIPs[ipDetails.ip] < 3){
+        }else if(!ipDetails.logged && this.blockedIPs[ipDetails.ip] < this.MAX_FAILED_ATTEMPTS){
             this.blockedIPs[ipDetails.ip] ++;
             throw 'Not authorized'
         }
     
-        if ( this.blockedIPs[ipDetails.ip] >= 3) throw 'Access has been denied'
+        if ( this.blockedIPs[ipDetails.ip] >= this.MAX_FAILED_ATTEMPTS) throw 'Access has been denied'
     }
 }
