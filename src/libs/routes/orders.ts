@@ -1,20 +1,26 @@
 import express from 'express';
 const router = express.Router();
 
+import { Manager } from '../models/manager';
+
 router.get('/order', (req,res)=>{
     try {
+        let _manager = new Manager({username:req.query.username},req);
+        _manager.authorize()
         //Hace la request 
-        res.send('order')
+        res.status(200).send({ok:true,message:'order'})
     } catch (error) {
-        res.send(error)
+        res.status(409).send(error)
     }
 })
 
 router.post('/order',(req,res)=>{
     try {
-        res.send('order saved')
+        let _manager = new Manager({username:req.query.username},req);
+        _manager.authorize()
+        res.status(200).send({ok:true,message:'order saved'})
     } catch (error) {
-        res.send(error)
+        res.status(409).send(error)
     }
 })
 
