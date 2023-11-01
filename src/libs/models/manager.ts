@@ -10,7 +10,7 @@ export class Manager{
     private ipFailedRequest: IVerificator;
     private authorizer: IVerificator;
     private dataValidator : IVerificator;
-    private cache : IVerificator;
+    private cacheV : IVerificator;
 
     private ipDetails : any;
     private user: object;
@@ -23,7 +23,7 @@ export class Manager{
         this.authorizer = new Authorizer;
         this.ipFailedRequest = IpFailedRequest.getInstance();
         this.dataValidator = new DataValidator;
-        this.cache = Cache.getInstance();
+        this.cacheV = Cache.getInstance();
     }
 
     authenticate() : this{        
@@ -41,5 +41,11 @@ export class Manager{
         this.authorizer.verify({user:this.user, request:this.request});
         return this
     }
+
+    cache():this{
+        this.cacheV.verify({});
+        return this;
+    }
+    
 
 }
