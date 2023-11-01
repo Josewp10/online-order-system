@@ -1,18 +1,27 @@
 import { Authenticator } from "./authenticator";
 import { IpFailedRequest } from "./ipFailedRequest";
-import { User } from "./user";
+import { Authorizer } from "./authorizer";
+import { DataValidator } from "./dataValidator";
+import { Cache } from "./cache";
 import { IVerificator } from "./IVerificator";
 
 export class Manager{
     private authentication: IVerificator;
     private ipFailedRequest: IVerificator;
+    private authorizer: IVerificator;
+    private dataValidator : IVerificator;
+    private cache : IVerificator;
+
     private ipDetails : any;
     private user: object;
     
     constructor(user:object,request?:object){
         this.user=user;
         this.authentication = new Authenticator;
+        this.authorizer = new Authorizer;
         this.ipFailedRequest = IpFailedRequest.getInstance();
+        this.dataValidator = new DataValidator;
+        this.cache = Cache.getInstance();
     }
 
     authenticate() : this{        
@@ -26,6 +35,9 @@ export class Manager{
         return this;
     }
     
-
+    authorize():this{
+        this.authorizer.verify({});
+        return this
+    }
 
 }
