@@ -2,5 +2,5 @@ export interface IVerificator {
     /**
      * verify
      */
-    verify(object?:Object):any;
+    verify(object:Object):any;
 }

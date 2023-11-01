@@ -4,13 +4,12 @@ import { Manager } from '../models/manager';
 
 
 router.post('/login', (req,res)=>{
-    try {
+    try { 
         const user = req.body;
         const _manager = new Manager(user);
         _manager.authenticate().ipValidate();
-        res.send('Authorized')
+        res.send('authorized')
     } catch (error) {
-        //Here is 
         res.send(error)
     }
 })
