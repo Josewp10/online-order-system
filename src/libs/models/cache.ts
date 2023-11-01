@@ -7,6 +7,13 @@ export class Cache implements IVerificator{
 
     private constructor(){
         this.requests[`GET-/order-5`] ={data:'Data already stored'}
+        this.requests[`GET-/order-undefined`] ={
+            "id": 3,
+            "product": "pape",
+            "quantity": 1,
+            "totalPrice": 5000,
+            "customer": "PACO"
+        }
     }
 
     public static getInstance(): Cache {
@@ -19,12 +26,11 @@ export class Cache implements IVerificator{
     verify(data:any) {
                
         let request = `${data.request.method}-${data.request.path}-${data.request.query.id}`
-        console.log(request);
-        
+            
         if(this.requests[request]==undefined){
-            console.log('Logic to make request to the order system');            
+            return 'Logic to make request to the order system';            
         }else{
-            //return 'this.requests[request]'
+            return this.requests[request]
         }
         
     }

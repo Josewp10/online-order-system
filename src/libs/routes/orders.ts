@@ -7,10 +7,12 @@ import { orders } from '../database/orders';
 router.get('/order', (req,res)=>{
     try {
         let _manager = new Manager({username:req.query.username},req);
-        _manager.authorize().cache()
-        //const allOrders = Object.values(orders); 
+        let resp:any = _manager.authorize().cache()
+        console.log(resp);
+        
+        const allOrders = Object.values(orders); 
 
-        res.status(200).send({ok:true,data:'allOrders'})
+        res.status(200).send({ok:true,data:resp})
     } catch (error) {
         res.status(409).send({ok:false,error:error})
     }

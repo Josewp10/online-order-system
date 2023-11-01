@@ -37,16 +37,14 @@ export class Manager{
         return this;
     }
     
-    authorize():this{        
-        console.log(this.user);
-        
+    authorize():this{                
         this.authorizer.verify({user:this.user, request:this.request});
         return this
     }
 
     cache():this{        
-        this.cacheV.verify({request:this.request});
-        return this;
+        let resp = this.cacheV.verify({request:this.request});   
+        return resp;
     }
     
 
