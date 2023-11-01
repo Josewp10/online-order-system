@@ -1,5 +1,5 @@
 import { Order } from "../models/order";
 
-const orders: { [id: number]: Order } = {};
+const orders: { [id: string]: Order } = {};
 
 export { orders };
