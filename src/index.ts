@@ -18,7 +18,8 @@ app.use((err:Error, req:express.Request, res:express.Response, next:express.Next
     res.status(400).json({message:err.message});
 });
 
-//app.use()
+app.use(authentication);
+app.use(orders);
 
 
 //Endpoint
