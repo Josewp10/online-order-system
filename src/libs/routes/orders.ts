@@ -7,12 +7,12 @@ import { orders } from '../database/orders';
 router.get('/order', (req,res)=>{
     try {
         let _manager = new Manager({username:req.query.username},req);
-        _manager.authorize()
-        const allOrders = Object.values(orders); 
+        _manager.authorize().cache()
+        //const allOrders = Object.values(orders); 
 
-        res.status(200).send({ok:true,message:allOrders})
+        res.status(200).send({ok:true,data:'allOrders'})
     } catch (error) {
-        res.status(409).send(error)
+        res.status(409).send({ok:false,error:error})
     }
 })
 
@@ -34,7 +34,7 @@ router.post('/order',(req,res)=>{
         res.status(200).send({ok:true,message:"Order saved."})
 
     } catch (error) {
-        res.status(409).send(error)
+        res.status(409).send({ok:false,error:error})
     }
 })
 
